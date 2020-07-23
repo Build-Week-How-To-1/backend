@@ -1,7 +1,7 @@
 exports.up = async function (knex) {
   await knex.schema.createTable("howTos", (table) => {
     table.increments("id");
-    table.text("title").notNull();
+    table.text("title").notNull().unique();
   });
 };
 
