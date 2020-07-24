@@ -4,7 +4,7 @@ exports.seed = async function (knex) {
     { name: "bread" },
     { name: "cheese" },
     { name: "wire brush" },
-    { name: "rag" },
+    { name: "cloth" },
     { name: "stove polish" },
     { name: "filter" },
     { name: "pot" },
