@@ -6,17 +6,17 @@ const router = require("express").Router();
 
 router.post("/register", async (req, res, next) => {
   try {
-    const { username, password } = req.body;
-    const user = await Users.findBy({ username }).first();
+    const { email, password } = req.body;
+    const user = await Users.findBy({ email }).first();
 
     if (user) {
       return res.status(409).json({
-        message: "Username is already taken",
+        message: "email is already in use",
       });
     }
 
     const newUser = await Users.add({
-      username,
+      email,
       password: await bcrypt.hash(password, 15),
     });
 
@@ -28,8 +28,8 @@ router.post("/register", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
   try {
-    const { username, password } = req.body;
-    const user = await Users.findBy({ username }).first();
+    const { email, password } = req.body;
+    const user = await Users.findBy({ email }).first();
 
     if (!user) {
       return res.status(401).json({
@@ -49,7 +49,7 @@ router.post("/login", async (req, res, next) => {
 
     res.status(200).json({
       // token: jwt.sign(payload, process.env.JWT_SECRET),
-      message: `Welcome ${user.username}!`,
+      message: `Welcome ${user.email}!`,
     });
   } catch (err) {
     next(err);

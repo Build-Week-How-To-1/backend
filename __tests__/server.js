@@ -1,7 +1,7 @@
 require("dotenv");
 const db = require("../data/dbconfig");
 const supertest = require("supertest");
-const server = require("../data/server");
+const server = require("../api/server");
 
 describe("should be the correct database environment", () => {
   afterAll(async () => {

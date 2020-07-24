@@ -13,8 +13,8 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-server.use("/users", usersRouter);
-server.use("/howTos", authenticate, howTosRouter);
-server.use("/reviews", authenticate, reviewsRouter);
+server.use("/api/users", usersRouter);
+server.use("/api/howTos", authenticate, howTosRouter);
+server.use("/api/reviews", authenticate, reviewsRouter);
 
 module.exports = server;

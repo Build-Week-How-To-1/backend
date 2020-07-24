@@ -1,8 +1,8 @@
 const supertest = require("supertest");
-const server = require("../data/server");
+const server = require("../api/server");
 const db = require("../data/dbconfig");
 
-describe("auth reg unit tests", () => {
+describe("auth users reg unit tests", () => {
   afterAll(async () => {
     await db("users").truncate();
   });
@@ -12,41 +12,41 @@ describe("auth reg unit tests", () => {
 
   it("POST /register success", async () => {
     const res = await supertest(server)
-      .post("/api/auth/register")
-      .send({ username: "finn", password: "shmowzow" });
+      .post("/api/users/register")
+      .send({ email: "finn@hero.com", password: "shmowzow" });
     // @ts-ignore
     expect(res.statusCode).toBe(201);
     // @ts-ignore
     expect(res.headers["content-type"]).toBe("application/json; charset=utf-8");
     expect(res.body.id).toBeDefined();
-    expect(res.body.username).toBe("finn");
+    expect(res.body.email).toBe("finn@hero.com");
   });
 
   it("POST /register fails", async () => {
     const res = await supertest(server)
-      .post("/api/auth/register")
-      .send({ username: "dalecooper", password: "password" });
+      .post("/api/users/register")
+      .send({ email: "dalecooper@gmail.com", password: "password" });
     // @ts-ignore
     expect(res.headers["content-type"]).toBe("application/json; charset=utf-8");
     expect(res.status).toBe(409);
   });
 });
 
-describe("auth login unit tests", () => {
+describe("auth users login unit tests", () => {
   afterAll(async () => {
     await db("users").truncate();
   });
   beforeEach(async () => {
     await db("users").truncate();
     await supertest(server)
-      .post("/api/auth/register")
-      .send({ username: "user1", password: "pass" });
+      .post("/api/users/register")
+      .send({ email: "user1@email.com", password: "pass" });
   });
 
   it("POST /login success", async () => {
     const res = await supertest(server)
-      .post("/api/auth/login")
-      .send({ username: "user1", password: "pass" });
+      .post("/api/users/login")
+      .send({ email: "user1@email.com", password: "pass" });
     // @ts-ignore
     expect(res.statusCode).toBe(200);
     // @ts-ignore
@@ -55,8 +55,8 @@ describe("auth login unit tests", () => {
 
   it("POST /login fails", async () => {
     const res = await supertest(server)
-      .post("/api/auth/login")
-      .send({ username: "notuser", password: "word" });
+      .post("/api/users/login")
+      .send({ email: "notuser", password: "word" });
     // @ts-ignore
     expect(res.headers["content-type"]).toBe("application/json; charset=utf-8");
     expect(res.status).toBe(401);
