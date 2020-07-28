@@ -2,7 +2,6 @@ const db = require("../data/dbconfig");
 
 function findReviewByHowToId(id) {
   return db("reviews as r")
-    .join("howTos as h")
     .select("r.id", "r.content", "r.likes")
     .where(id, "=", "r.howTos_id");
 }
@@ -23,7 +22,7 @@ async function updateReview(review, howToId) {
 
 module.exports = {
   addReview,
-  findReviewBy,
+  //   findReviewBy,
   findReviewByHowToId,
   updateReview,
 };
