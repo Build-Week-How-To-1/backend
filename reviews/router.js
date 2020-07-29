@@ -16,7 +16,7 @@ router.get("/:howToId/reviews", (req, res, next) => {
 });
 
 // POST new review
-router.post("", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     const { content } = req.body;
   } catch (err) {

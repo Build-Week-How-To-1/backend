@@ -8,9 +8,9 @@ async function addHowTo(howTo) {
 
 function findHowTos() {
   return db("howTos as h")
+    .select("h.id", "h.title", "h.img", "h.user_id", "u.name", "r.content")
     .innerJoin("users as u", "u.name", "h.user_id")
-    .leftJoin("reviews as r", "r.content")
-    .select("h.id", "h.title", "h.img", "h.user_id");
+    .leftJoin("reviews as r", "r.howTos_id", "h.id");
 }
 
 function findHowToBy(filter) {
