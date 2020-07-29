@@ -8,8 +8,8 @@ async function addHowTo(howTo) {
 
 function findHowTos() {
   return db("howTos as h")
-    .join("users as u", "u.name", "h.user_id")
-    .join("reviews as r", "r.content")
+    .innerJoin("users as u", "u.name", "h.user_id")
+    .leftJoin("reviews as r", "r.content")
     .select("h.id", "h.title", "h.img", "h.user_id");
 }
 
