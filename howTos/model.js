@@ -7,7 +7,10 @@ async function addHowTo(howTo) {
 }
 
 function findHowTos() {
-  return db("howTos as h").select("h.id", "h.title", "h.user_id");
+  return db("howTos as h")
+    .join("users as u", "u.name", "h.user_id")
+    .join("reviews as r", "r.content")
+    .select("h.id", "h.title", "h.img", "h.user_id");
 }
 
 function findHowToBy(filter) {

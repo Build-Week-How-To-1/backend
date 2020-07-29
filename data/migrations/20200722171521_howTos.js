@@ -2,6 +2,7 @@ exports.up = async function (knex) {
   await knex.schema.createTable("howTos", (table) => {
     table.increments("id");
     table.text("title").notNull().unique();
+    table.text("img");
     table
       .integer("user_id")
       .references("id")
