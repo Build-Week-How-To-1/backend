@@ -32,11 +32,11 @@ describe("howTos unit tests", () => {
     expect(res.headers["content-type"]).toBe("application/json; charset=utf-8");
   });
 
-  it("", async () => {
+  it("edit howTo", async () => {
     //   const res = await supertest(server)
   });
 
-  it("", async () => {
+  it("deletes howTo", async () => {
     //   const res = await supertest(server)
   });
 });

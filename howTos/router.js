@@ -62,4 +62,23 @@ router.put("/:howToId", async (req, res, next) => {
   }
 });
 
+// Delete howTo
+router.delete("/:howToId", async (req, res, next) => {
+  try {
+    const { howToId } = req.params;
+    //verify howTo exists
+    HowTos.findHowToById(howToId).then((howTo) => {
+      if (howTo) {
+        HowTos.removeHowTo();
+      } else {
+        res.status(400).json({
+          message: "Could not delete howTo",
+        });
+      }
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
