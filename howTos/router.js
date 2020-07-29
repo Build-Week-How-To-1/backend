@@ -33,9 +33,10 @@ router.get("/", async (req, res, next) => {
 });
 
 // POST new howTo
-router.post("", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-    const { title, steps, resources } = req.body;
+    const howTo = await HowTos.addHowTo(req.body);
+    res.status(201).json(howTo);
   } catch (err) {
     next(err);
   }
