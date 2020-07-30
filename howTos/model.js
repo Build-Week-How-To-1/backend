@@ -1,4 +1,4 @@
-const db = require("../data/dbconfig");
+const db = require("../data/dbConfig");
 
 async function addHowTo(howTo) {
   const [id] = await db("howTos").insert(howTo);
