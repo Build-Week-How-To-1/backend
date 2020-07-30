@@ -28,9 +28,9 @@ router.post("/", async (req, res, next) => {
 router.put("/:howToId/:reviewId", async (req, res, next) => {
   try {
     const changes = req.body;
-    const { reviewId } = req.params;
+    const { howToId, reviewId } = req.params;
     //verify review exists
-    Reviews.findReviewById(howToId).then((howTo) => {
+    HowTos.findH(howToId).then((howTo) => {
       if (howTo) {
         //update
         HowTos.updateHowTo(changes.howTo, howToId);
