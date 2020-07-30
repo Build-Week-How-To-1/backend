@@ -1,6 +1,6 @@
 const db = require("../data/dbConfig");
 
-function findReviewByHowToId(id) {
+function findReviewsByHowToId(id) {
   return db("reviews as r")
     .select("r.id", "r.content", "r.likes")
     .where(id, "=", "r.howTos_id");
@@ -10,7 +10,7 @@ async function addReview(review) {
   review.forEach(async (review) => {
     await db("reviews").insert(review);
   });
-  return db("reviews").where("howTos_id", review[0].post_id);
+  return db("reviews").where("howTos_id", review[0].howTos_id);
 }
 
 async function updateReview(review, howToId) {
@@ -20,9 +20,14 @@ async function updateReview(review, howToId) {
   return db("reviews").where("howTos_id", howToId);
 }
 
+function removeReview(id) {
+  return db("reviews").where({ id }).del();
+}
+
 module.exports = {
   addReview,
   //   findReviewBy,
-  findReviewByHowToId,
+  findReviewsByHowToId,
   updateReview,
+  removeReview,
 };
