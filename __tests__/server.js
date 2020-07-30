@@ -1,5 +1,5 @@
 require("dotenv");
-const db = require("../data/dbconfig");
+const db = require("../data/dbConfig");
 const supertest = require("supertest");
 const server = require("../api/server");
 
