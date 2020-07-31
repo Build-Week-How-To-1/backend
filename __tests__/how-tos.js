@@ -2,7 +2,7 @@ const supertest = require("supertest");
 const server = require("../api/server");
 const db = require("../data/dbconfig");
 
-describe("howTos unit tests", () => {
+describe("howtos unit tests", () => {
   afterAll(async () => {
     await db("howTos").truncate();
   });
@@ -10,9 +10,9 @@ describe("howTos unit tests", () => {
     await db.seed.run();
   });
 
-  it("add new howTo", async () => {
+  it("add new howto", async () => {
     const res = await supertest(server)
-      .post("/api/users/register")
+      .post("/api/howtos")
       .send({ title: "Paint Fence" });
     // @ts-ignore
     expect(res.statusCode).toBe(201);
@@ -24,7 +24,7 @@ describe("howTos unit tests", () => {
 
   it("fail to add new howTo", async () => {
     const res = await supertest(server)
-      .post("/api/users/register")
+      .post("/api/howtos")
       .send({ title: "Grilled Cheese" });
     // @ts-ignore
     expect(res.statusCode).toBe(409);
@@ -33,7 +33,7 @@ describe("howTos unit tests", () => {
   });
 
   it("edit howTo", async () => {
-    //   const res = await supertest(server)
+    const res = await supertest(server).put("/api/howtos/howtosid");
   });
 
   it("deletes howTo", async () => {

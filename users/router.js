@@ -7,7 +7,7 @@ const router = require("express").Router();
 router.post("/register", async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await Users.findBy({ email }).first();
+    const user = await Users.findUserBy({ email }).first();
 
     if (user) {
       return res.status(409).json({
@@ -15,7 +15,7 @@ router.post("/register", async (req, res, next) => {
       });
     }
 
-    const newUser = await Users.add({
+    const newUser = await Users.addUser({
       email,
       password: await bcrypt.hash(password, 15),
     });
@@ -29,11 +29,11 @@ router.post("/register", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await Users.findBy({ email }).first();
+    const user = await Users.findUserBy({ email }).first();
 
     if (!user) {
       return res.status(401).json({
-        message: "You shall not pass!",
+        message: "Invalid login info",
       });
     }
 
@@ -41,14 +41,13 @@ router.post("/login", async (req, res, next) => {
 
     if (!passwordValid) {
       return res.status(401).json({
-        message: "You shall not pass!",
+        message: "Invalid password",
       });
     }
 
     const token = generateToken(user);
 
     res.status(200).json({
-      // token: jwt.sign(payload, process.env.JWT_SECRET),
       message: `Welcome ${user.email}!`,
     });
   } catch (err) {
