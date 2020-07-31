@@ -4,11 +4,11 @@ const Users = require("../users/model");
 const Reviews = require("../reviews/model");
 
 // GET all howTos by userId
-router.get("/:userid", (req, res, next) => {
+router.get("/:userid", async (req, res, next) => {
   const { userid } = req.params;
   Users.findUserById(userid).then((user) => {
     if (user) {
-      HowTos.findHowTosBy(userid)
+      HowTos.findHowToByUser(userid)
         .then((howTos) => {
           res.status(200).json(howTos);
         })

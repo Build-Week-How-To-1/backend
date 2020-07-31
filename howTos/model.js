@@ -17,8 +17,8 @@ function findHowTos() {
     .join("users as u", "h.user_id", "u.id");
 }
 
-function findHowToBy(filter) {
-  return db("howTos").where(filter).first();
+function findHowToByUser(user_id) {
+  return db("howTos").where(user_id).first();
 }
 
 // find howto by user id fn?
@@ -43,7 +43,7 @@ function findResourecesByHowToId(id) {
 module.exports = {
   addHowTo,
   findHowTos,
-  findHowToBy,
+  findHowToByUser,
   findHowToById,
   removeHowTo,
   updateHowTo,
