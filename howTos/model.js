@@ -40,6 +40,10 @@ function findResourecesByHowToId(id) {
   return db("resources").where("howTos_id", id);
 }
 
+function findResourecesByHowToId(id) {
+  return db("resources").where("howTos_id", id);
+}
+
 module.exports = {
   addHowTo,
   findHowTos,
