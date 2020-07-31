@@ -20,7 +20,9 @@ router.post("/register", async (req, res, next) => {
       password: await bcrypt.hash(password, 15),
     });
 
-    res.status(201).json(newUser);
+    const token = generateToken(newUser);
+
+    res.status(201).json({...newUser, token});
   } catch (err) {
     next(err);
   }
@@ -49,6 +51,7 @@ router.post("/login", async (req, res, next) => {
 
     res.status(200).json({
       message: `Welcome ${user.email}!`,
+      token
     });
   } catch (err) {
     next(err);
