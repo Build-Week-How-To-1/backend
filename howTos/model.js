@@ -1,7 +1,7 @@
 const db = require("../data/dbConfig");
 
 async function addHowTo(howTo) {
-  const [id] = await db("howTos").insert(howTo);
+  const [id] = await db("howTos").insert(howTo, 'id');
 
   return db("howTos").where({ id }).first();
 }
