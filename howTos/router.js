@@ -35,8 +35,8 @@ router.get("/", async (req, res, next) => {
         const reviews = await Reviews.findReviewsByHowToId(howTo.id);
         console.log("reviews", reviews);
         howTo.reviews = reviews;
-        const resources = await HowTos.findResourcesByHowToId(howTo.id);
-        howTo.resources = resources;
+        // const resources = await HowTos.findResourcesByHowToId(howTo.id);
+        // howTo.resources = resources;
         return howTo;
       })
     );
