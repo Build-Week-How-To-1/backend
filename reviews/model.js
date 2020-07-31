@@ -1,9 +1,7 @@
 const db = require("../data/dbConfig");
 
 function findReviewsByHowToId(id) {
-  return db("reviews as r")
-    .select("r.id", "r.content", "r.likes")
-    .where(id, "=", "r.howTos_id");
+  return db("reviews").where("howTos_id", id);
 }
 
 async function addReview(review) {

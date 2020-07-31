@@ -26,7 +26,17 @@ router.get("/:userid", (req, res, next) => {
 // Get all howTos
 router.get("/", async (req, res, next) => {
   try {
-    res.json(await HowTos.findHowTos);
+    // res.json(await HowTos.findHowTos());
+    let howTos = await HowTos.findHowTos()
+    console.log('howTos', howTos);
+    howTos = await Promise.all(howTos.map(async howTo => {
+      console.log(howTo.id)
+      const reviews = await Reviews.findReviewsByHowToId(howTo.id);
+      console.log('reviews', reviews);
+      howTo.reviews = reviews;
+      return howTo;
+    }));
+    res.status(200).json(howTos);
   } catch (err) {
     next(err);
   }
