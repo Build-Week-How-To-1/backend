@@ -1,7 +1,5 @@
 require("dotenv");
-const db = require("../data/dbConfig");
-const supertest = require("supertest");
-const server = require("../api/server");
+const db = require("../data/dbconfig");
 
 describe("should be the correct database environment", () => {
   afterAll(async () => {
@@ -9,6 +7,6 @@ describe("should be the correct database environment", () => {
   });
 
   it("should set the testing environment", () => {
-    expect(process.env.DB_ENV).toBe("testing");
+    expect(process.env.DB_ENV).toBe("development");
   });
 });

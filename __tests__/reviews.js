@@ -12,7 +12,7 @@ describe("reviews unit tests", () => {
 
   it("add new review", async () => {
     const res = await supertest(server)
-      .post("/api/:howTosid/reviews")
+      .post("/api/howTos/:howTosid/reviews")
       .send({ howTosid: 1, content: "This was a delicious sandwich" });
     // @ts-ignore
     expect(res.statusCode).toBe(201);
