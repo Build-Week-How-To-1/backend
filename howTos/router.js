@@ -4,11 +4,11 @@ const Users = require("../users/model");
 const Reviews = require("../reviews/model");
 
 // GET all howTos by userId
-router.get("/:userid", (req, res, next) => {
+router.get("/:userid", async (req, res, next) => {
   const { userid } = req.params;
   Users.findUserById(userid).then((user) => {
     if (user) {
-      HowTos.findHowTosBy(userid)
+      HowTos.findHowToByUser(userid)
         .then((howTos) => {
           res.status(200).json(howTos);
         })
@@ -27,15 +27,19 @@ router.get("/:userid", (req, res, next) => {
 router.get("/", async (req, res, next) => {
   try {
     // res.json(await HowTos.findHowTos());
-    let howTos = await HowTos.findHowTos()
-    console.log('howTos', howTos);
-    howTos = await Promise.all(howTos.map(async howTo => {
-      console.log(howTo.id)
-      const reviews = await Reviews.findReviewsByHowToId(howTo.id);
-      console.log('reviews', reviews);
-      howTo.reviews = reviews;
-      return howTo;
-    }));
+    let howTos = await HowTos.findHowTos();
+    console.log("howTos", howTos);
+    howTos = await Promise.all(
+      howTos.map(async (howTo) => {
+        console.log(howTo.id);
+        const reviews = await Reviews.findReviewsByHowToId(howTo.id);
+        console.log("reviews", reviews);
+        howTo.reviews = reviews;
+        // const resources = await HowTos.findResourcesByHowToId(howTo.id);
+        // howTo.resources = resources;
+        return howTo;
+      })
+    );
     res.status(200).json(howTos);
   } catch (err) {
     next(err);
