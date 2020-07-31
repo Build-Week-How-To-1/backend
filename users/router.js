@@ -49,6 +49,7 @@ router.post("/login", async (req, res, next) => {
 
     res.status(200).json({
       message: `Welcome ${user.email}!`,
+      token
     });
   } catch (err) {
     next(err);
