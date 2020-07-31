@@ -24,7 +24,7 @@ function findHowToByUser(user_id) {
 // find howto by user id fn?
 
 function findHowToById(id) {
-  return db("howTos").where({ id }).first();
+  return db("howTos").where('id', id).first();
 }
 
 function removeHowTo(id) {
@@ -32,8 +32,8 @@ function removeHowTo(id) {
 }
 
 async function updateHowTo(changes, id) {
-  await db("howTos").where({ id }).update(changes);
-  return db("howTos").where({ id }).first();
+  await db("howTos").where('id', id).update(changes);
+  return db("howTos").where('id', id).first();
 }
 
 function findResourecesByHowToId(id) {

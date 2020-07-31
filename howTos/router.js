@@ -63,9 +63,12 @@ router.put("/:howToId", async (req, res, next) => {
     const { howToId } = req.params;
     //verify howTo exists
     HowTos.findHowToById(howToId).then((howTo) => {
+      console.log('we are here', changes)
       if (howTo) {
         //update
-        HowTos.updateHowTo(changes.howTo, howToId);
+        HowTos.updateHowTo(changes.howTo, howToId).then(howToArr => {
+          res.status(201).json({message: 'Change was successful.', changedHowTo: howToArr[0]})
+        }).catch(err => res.status(400).json({error: err, message: 'Error updating how-to', step: 'Put /:howToId findHowToById updateHowTo'}));
       } else {
         res.status(400).json({
           message: "Could not update howTo",
