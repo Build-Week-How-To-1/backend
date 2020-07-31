@@ -5,6 +5,11 @@ const db = require("../data/dbConfig");
 describe("howtos unit tests", () => {
   afterAll(async () => {
     await db("howTos").truncate();
+    await db("users").truncate();
+    await db("resources").truncate();
+    await db("reviews").truncate();
+    await db("steps").truncate();
+    await db("howTos_resources").truncate();
   });
   beforeEach(async () => {
     await db.seed.run();
@@ -33,10 +38,24 @@ describe("howtos unit tests", () => {
   });
 
   it("edit howTo", async () => {
-    const res = await supertest(server).put("/api/howtos/howtosid");
+    // await supertest(server)
+    //   .post("api/users/register")
+    //   .send({ email: "user@email.com", password: "password" });
+    const res = await supertest(server)
+      .put("/api/howtos/:howtosid")
+      .send({ howtos_id: 1, title: "Grilled Cheez" });
+    // @ts-ignore
+    expect(res.statusCode).toBe(200);
   });
 
   it("deletes howTo", async () => {
-    //   const res = await supertest(server)
+    // await supertest(server)
+    //   .delete("api/users/register")
+    //   .send({ email: "user@email.com", password: "password" });
+    const res = await supertest(server)
+      .delete("/api/howtos/:howtosid")
+      .send({ howtos_id: 1 });
+    // @ts-ignore
+    expect(res.statusCode).toBe(200);
   });
 });

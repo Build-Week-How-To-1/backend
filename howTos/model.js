@@ -14,12 +14,14 @@ function findHowTos() {
 
   return db("howTos as h")
     .select("h.id", "h.title", "h.img", "h.user_id", "u.email")
-    .join('users as u', 'h.user_id', 'u.id');
+    .join("users as u", "h.user_id", "u.id");
 }
 
 function findHowToBy(filter) {
   return db("howTos").where(filter).first();
 }
+
+// find howto by user id fn?
 
 function findHowToById(id) {
   return db("howTos").where({ id }).first();
@@ -34,6 +36,10 @@ async function updateHowTo(changes, id) {
   return db("howTos").where({ id }).first();
 }
 
+function findResourecesByHowToId(id) {
+  return db("resources").where("howTos_id", id);
+}
+
 module.exports = {
   addHowTo,
   findHowTos,
@@ -41,4 +47,5 @@ module.exports = {
   findHowToById,
   removeHowTo,
   updateHowTo,
+  findResourecesByHowToId,
 };

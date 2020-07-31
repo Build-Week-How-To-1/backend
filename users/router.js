@@ -4,6 +4,7 @@ const Users = require("./model");
 
 const router = require("express").Router();
 
+// Register new user by email and password
 router.post("/register", async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -15,14 +16,16 @@ router.post("/register", async (req, res, next) => {
       });
     }
 
+    // addUser from users/model, hashes text password with time complexity of 15
     const newUser = await Users.addUser({
       email,
       password: await bcrypt.hash(password, 15),
     });
 
+    // middleware/token-midleware
     const token = generateToken(newUser);
 
-    res.status(201).json({...newUser, token});
+    res.status(201).json({ ...newUser, token });
   } catch (err) {
     next(err);
   }
@@ -31,6 +34,7 @@ router.post("/register", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    // findUserBy from users/middleware
     const user = await Users.findUserBy({ email }).first();
 
     if (!user) {
@@ -39,6 +43,7 @@ router.post("/login", async (req, res, next) => {
       });
     }
 
+    // validate password
     const passwordValid = await bcrypt.compare(password, user.password);
 
     if (!passwordValid) {
@@ -51,7 +56,7 @@ router.post("/login", async (req, res, next) => {
 
     res.status(200).json({
       message: `Welcome ${user.email}!`,
-      token
+      token,
     });
   } catch (err) {
     next(err);
