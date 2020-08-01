@@ -87,7 +87,7 @@ router.delete("/:howToId", async (req, res, next) => {
     //verify howTo exists
     HowTos.findHowToById(howToId).then((howTo) => {
       if (howTo) {
-        HowTos.removeHowTo(howToId);
+        HowTos.removeHowTo(howToId).then(() => res.status(201).json({message: 'How to deleted.'}));
       } else {
         res.status(400).json({
           message: "Could not delete howTo",
