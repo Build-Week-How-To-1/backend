@@ -3,7 +3,7 @@ const db = require("../data/dbConfig");
 async function addHowTo(howTo) {
   const [id] = await db("howTos").insert(howTo, "id");
 
-  return db("howTos").where({ id }).first();
+  return db("howTos").where('id', id).first();
 }
 
 function findHowTos() {
@@ -28,7 +28,7 @@ function findHowToById(id) {
 }
 
 function removeHowTo(id) {
-  return db("howTos").where({ id }).del();
+  return db("howTos").where('id', id).del();
 }
 
 async function updateHowTo(changes, id) {
