@@ -28,7 +28,7 @@ function findHowToById(id) {
 }
 
 function removeHowTo(id) {
-  return db("howTos").where({ id }).del();
+  return db("howTos").where('id', id).del();
 }
 
 async function updateHowTo(changes, id) {
