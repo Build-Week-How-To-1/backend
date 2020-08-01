@@ -28,15 +28,10 @@ router.get("/", async (req, res, next) => {
   try {
     // res.json(await HowTos.findHowTos());
     let howTos = await HowTos.findHowTos();
-    console.log("howTos", howTos);
     howTos = await Promise.all(
       howTos.map(async (howTo) => {
-        console.log(howTo.id);
         const reviews = await Reviews.findReviewsByHowToId(howTo.id);
-        console.log("reviews", reviews);
         howTo.reviews = reviews;
-        // const resources = await HowTos.findResourcesByHowToId(howTo.id);
-        // howTo.resources = resources;
         return howTo;
       })
     );
@@ -63,12 +58,22 @@ router.put("/:howToId", async (req, res, next) => {
     const { howToId } = req.params;
     //verify howTo exists
     HowTos.findHowToById(howToId).then((howTo) => {
-      console.log('we are here', changes)
       if (howTo) {
         //update
-        HowTos.updateHowTo(changes, howToId).then(howToArr => {
-          res.status(201).json({message: 'Change was successful.', changedHowTo: howToArr})
-        }).catch(err => res.status(400).json({error: err, message: 'Error updating how-to', step: 'Put /:howToId findHowToById updateHowTo'}));
+        HowTos.updateHowTo(changes, howToId)
+          .then((howToArr) => {
+            res.status(201).json({
+              message: "Change was successful.",
+              changedHowTo: howToArr,
+            });
+          })
+          .catch((err) =>
+            res.status(400).json({
+              error: err,
+              message: "Error updating how-to",
+              step: "Put /:howToId findHowToById updateHowTo",
+            })
+          );
       } else {
         res.status(400).json({
           message: "Could not update howTo",
@@ -87,7 +92,9 @@ router.delete("/:howToId", async (req, res, next) => {
     //verify howTo exists
     HowTos.findHowToById(howToId).then((howTo) => {
       if (howTo) {
-        HowTos.removeHowTo(howToId).then(() => res.status(201).json({message: 'How to deleted.'}));
+        HowTos.removeHowTo(howToId).then(() =>
+          res.status(201).json({ message: "How to deleted." })
+        );
       } else {
         res.status(400).json({
           message: "Could not delete howTo",

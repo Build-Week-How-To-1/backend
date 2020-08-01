@@ -6,7 +6,7 @@ function findReviewsByHowToId(id) {
 
 async function addReview(review) {
   review.forEach(async (review) => {
-    await db("reviews").insert(review, 'id');
+    await db("reviews").insert(review, "id");
   });
   return db("reviews").where("howTos_id", review[0].howTos_id);
 }
@@ -24,7 +24,6 @@ function removeReview(id) {
 
 module.exports = {
   addReview,
-  //   findReviewBy,
   findReviewsByHowToId,
   updateReview,
   removeReview,

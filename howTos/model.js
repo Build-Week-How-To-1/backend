@@ -7,11 +7,6 @@ async function addHowTo(howTo) {
 }
 
 function findHowTos() {
-  // return db("howTos as h")
-  //   .select("h.id", "h.title", "h.img", "h.user_id", "u.email", "r.content")
-  //   .innerJoin("users as u", "u.email", "h.user_id")
-  //   .leftJoin("reviews as r", "r.howTos_id", "h.id");
-
   return db("howTos as h")
     .select("h.id", "h.title", "h.img", "h.user_id", "u.email")
     .join("users as u", "h.user_id", "u.id");
@@ -20,8 +15,6 @@ function findHowTos() {
 function findHowToByUser(user_id) {
   return db("howTos").where("id", user_id).first();
 }
-
-// find howto by user id fn?
 
 function findHowToById(id) {
   return db("howTos").where("id", id).first();
