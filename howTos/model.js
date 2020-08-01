@@ -3,7 +3,7 @@ const db = require("../data/dbConfig");
 async function addHowTo(howTo) {
   const [id] = await db("howTos").insert(howTo, "id");
 
-  return db("howTos").where('id', id).first();
+  return db("howTos").where("id", id).first();
 }
 
 function findHowTos() {
@@ -18,29 +18,25 @@ function findHowTos() {
 }
 
 function findHowToByUser(user_id) {
-  return db("howTos").where('id', user_id).first();
+  return db("howTos").where("id", user_id).first();
 }
 
 // find howto by user id fn?
 
 function findHowToById(id) {
-  return db("howTos").where('id', id).first();
+  return db("howTos").where("id", id).first();
 }
 
 function removeHowTo(id) {
-  return db("howTos").where('id', id).del();
+  return db("howTos").where("id", id).del();
 }
 
 async function updateHowTo(changes, id) {
-  await db("howTos").where('id', id).update(changes);
-  return db("howTos").where('id', id).first();
+  await db("howTos").where("id", id).update(changes);
+  return db("howTos").where("id", id).first();
 }
 
-function findResourecesByHowToId(id) {
-  return db("resources").where("howTos_id", id);
-}
-
-function findResourecesByHowToId(id) {
+function findResourcesByHowToId(id) {
   return db("resources").where("howTos_id", id);
 }
 
@@ -51,5 +47,5 @@ module.exports = {
   findHowToById,
   removeHowTo,
   updateHowTo,
-  findResourecesByHowToId,
+  findResourcesByHowToId,
 };
