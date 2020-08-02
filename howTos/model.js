@@ -8,7 +8,15 @@ async function addHowTo(howTo) {
 
 function findHowTos() {
   return db("howTos as h")
-    .select("h.id", "h.title", "h.img", "h.user_id", "u.email")
+    .select(
+      "h.id",
+      "h.title",
+      "h.steps",
+      "h.resources",
+      "h.img",
+      "h.user_id",
+      "u.email"
+    )
     .join("users as u", "h.user_id", "u.id");
 }
 
