@@ -28,9 +28,6 @@ describe("reviews unit tests", () => {
   });
 
   it("edit review", async () => {
-    // await supertest(server)
-    //   .post("api/users/register")
-    //   .send({ email: "user@email.com", password: "password" });
     const res = await supertest(server)
       .put("/api/howtos/:howtosid/reviews/:reviewsid")
       .send({ howtos_id: 1, reviews_id: 1, content: "cheesy!" });
@@ -39,9 +36,6 @@ describe("reviews unit tests", () => {
   });
 
   it("deletes review", async () => {
-    // await supertest(server)
-    //   .delete("api/users/register")
-    //   .send({ email: "user@email.com", password: "password" });
     const res = await supertest(server)
       .delete("/api/howtos/:howtosid/reviews/:reviewsid")
       .send({ howtos_id: 1, reviews_id: 1 });

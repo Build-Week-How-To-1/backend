@@ -38,9 +38,6 @@ describe("howtos unit tests", () => {
   });
 
   it("edit howTo", async () => {
-    // await supertest(server)
-    //   .post("api/users/register")
-    //   .send({ email: "user@email.com", password: "password" });
     const res = await supertest(server)
       .put("/api/howtos/:howtosid")
       .send({ howtos_id: 1, title: "Grilled Cheez" });
@@ -49,9 +46,6 @@ describe("howtos unit tests", () => {
   });
 
   it("deletes howTo", async () => {
-    // await supertest(server)
-    //   .delete("api/users/register")
-    //   .send({ email: "user@email.com", password: "password" });
     const res = await supertest(server)
       .delete("/api/howtos/:howtosid")
       .send({ howtos_id: 1 });
